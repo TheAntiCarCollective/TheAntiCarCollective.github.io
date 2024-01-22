@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "ES2015"],
+    "module": "ES2015",
+    "noUncheckedIndexedAccess": true,
+    "sourceMap": true,
+    "strict": true,
+  },
+}

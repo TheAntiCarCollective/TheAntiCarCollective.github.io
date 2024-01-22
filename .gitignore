@@ -1,0 +1,12 @@
+/CNAME
+/LICENSE
+
+# Build outputs
+/pages/**/*.js
+/pages/**/*.js.map
+
+# IDEA
+/.idea
+
+# Node.js
+/node_modules
