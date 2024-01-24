@@ -24,6 +24,7 @@ body {
 
 header {
   display: grid;
+  background: lightsteelblue;
 }
 
 @media (orientation: landscape) {
@@ -40,21 +41,22 @@ header {
   display: grid;
   height: 100%;
   width: 100%;
+  border: 1px solid black;
+}
+
+.header-link:hover {
+  background: steelblue;
 }
 
 @media (orientation: landscape) {
   .header-link {
     align-items: center;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
   }
 }
 
 @media (orientation: portrait) {
   .header-link {
     justify-items: center;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
   }
 }
 
