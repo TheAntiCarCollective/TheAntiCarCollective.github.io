@@ -1,44 +1,4 @@
-import * as arrays from "./modules/arrays.js";
-import { Link, ScienceDirectLink, YouTubeLink } from "./modules/link.js";
-
-//#region Links
-const parseRawLink = (rawLink: unknown) => {
-  if (typeof rawLink !== "object") return;
-  if (rawLink === null) return;
-  if (!("contentId" in rawLink)) return;
-  if (!("type" in rawLink)) return;
-
-  const { contentId, type } = rawLink;
-  if (typeof contentId !== "string" || typeof type !== "string") return;
-
-  switch (type) {
-    case "sciencedirect": {
-      return new ScienceDirectLink(contentId);
-    }
-    case "youtube": {
-      return new YouTubeLink(contentId);
-    }
-  }
-};
-
-const linksJson = async () => {
-  const response = await fetch("assets/links.json");
-  const json: unknown = await response.json();
-
-  const links: Link[] = [];
-  if (!Array.isArray(json)) return links;
-
-  for (const rawLink of json) {
-    const link = parseRawLink(rawLink);
-    if (link) links.push(link);
-  }
-
-  return links;
-};
-
-const linksArray = await linksJson();
-const linksMap = arrays.associateBy(linksArray, ({ id }) => id);
-//#endregion
+import Link, * as links from "./modules/links.js";
 
 const contentRandomizer =
   // prettier-ignore
@@ -49,10 +9,10 @@ const locationLink = () => {
   // @ts-expect-error URL constructor does accept location
   const { searchParams } = new URL(location);
   const linkId = searchParams.get("link") ?? "";
-  return linksMap.get(linkId);
+  return links.get(linkId);
 };
 
-const randomLink = () => arrays.random(linksArray);
+const randomLink = links.random;
 
 const replaceContent = (link: Link) => {
   if (!contentRandomizer || !contentContainer) return;
