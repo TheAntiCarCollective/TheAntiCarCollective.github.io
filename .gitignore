@@ -1,7 +1,8 @@
 /CNAME
 /LICENSE
 
-# Build outputs
+# Artifacts
+/dist
 /pages/**/*.js
 /pages/**/*.js.map
 
