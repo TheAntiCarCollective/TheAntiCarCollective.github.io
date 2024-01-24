@@ -1,4 +1,4 @@
-class Link<K extends keyof HTMLElementTagNameMap> {
+class BaseLink<K extends keyof HTMLElementTagNameMap> {
   private readonly tagName;
   protected readonly contentId;
   readonly id;
@@ -25,7 +25,19 @@ class Link<K extends keyof HTMLElementTagNameMap> {
   }
 }
 
-export class YouTubeLink extends Link<"iframe"> {
+export class ScienceDirectLink extends BaseLink<"iframe"> {
+  constructor(contentId: string) {
+    super("iframe", ScienceDirectLink, contentId);
+  }
+
+  content() {
+    const content = super.content();
+    content.src = `https://www.sciencedirect.com/science/article/pii/${this.contentId}`;
+    return content;
+  }
+}
+
+export class YouTubeLink extends BaseLink<"iframe"> {
   constructor(contentId: string) {
     super("iframe", YouTubeLink, contentId);
   }
@@ -41,3 +53,5 @@ export class YouTubeLink extends Link<"iframe"> {
     return content;
   }
 }
+
+export type Link = ScienceDirectLink | YouTubeLink;

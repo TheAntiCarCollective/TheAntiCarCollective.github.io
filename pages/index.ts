@@ -1,33 +1,42 @@
 import * as arrays from "./modules/arrays.js";
-import { YouTubeLink } from "./modules/link.js";
+import { Link, ScienceDirectLink, YouTubeLink } from "./modules/link.js";
 
 //#region Links
-const linksArray = [
-  new YouTubeLink("Ra_0DgnJ1uQ"),
-  new YouTubeLink("bnKIVX968PQ"),
-  new YouTubeLink("VVUeqxXwCA0"),
-  new YouTubeLink("7IsMeKl-Sv0"),
-  new YouTubeLink("XfQUOHlAocY"),
-  new YouTubeLink("ORzNZUeUHAM"),
-  new YouTubeLink("CTV-wwszGw8"),
-  new YouTubeLink("uxykI30fS54"),
-  new YouTubeLink("bglWCuCMSWc"),
-  new YouTubeLink("vxWjtpzCIfA"),
-  new YouTubeLink("d8RRE2rDw4k"),
-  new YouTubeLink("cO6txCZpbsQ"),
-  new YouTubeLink("7Nw6qyyrTeI"),
-  new YouTubeLink("KPUlgSRn6e0"),
-  new YouTubeLink("_ByEBjf9ktY"),
-  new YouTubeLink("mXLqrMljdfU"),
-  new YouTubeLink("n94-_yE4IeU"),
-  new YouTubeLink("jN7mSXMruEo"),
-  new YouTubeLink("kdz6FeQLuHQ"),
-  new YouTubeLink("REni8Oi1QJQ"),
-  new YouTubeLink("AOc8ASeHYNw"),
-  new YouTubeLink("ztpcWUqVpIg"),
-  new YouTubeLink("6Vil5KC7Bl0"),
-];
+const parseRawLink = (rawLink: unknown) => {
+  if (typeof rawLink !== "object") return;
+  if (rawLink === null) return;
+  if (!("contentId" in rawLink)) return;
+  if (!("type" in rawLink)) return;
 
+  const { contentId, type } = rawLink;
+  if (typeof contentId !== "string" || typeof type !== "string") return;
+
+  switch (type) {
+    case "sciencedirect": {
+      return new ScienceDirectLink(contentId);
+    }
+    case "youtube": {
+      return new YouTubeLink(contentId);
+    }
+  }
+};
+
+const linksJson = async () => {
+  const response = await fetch("assets/links.json");
+  const json: unknown = await response.json();
+
+  const links: Link[] = [];
+  if (!Array.isArray(json)) return links;
+
+  for (const rawLink of json) {
+    const link = parseRawLink(rawLink);
+    if (link) links.push(link);
+  }
+
+  return links;
+};
+
+const linksArray = await linksJson();
 const linksMap = arrays.associateBy(linksArray, ({ id }) => id);
 //#endregion
 
@@ -43,35 +52,38 @@ const locationLink = () => {
   return linksMap.get(linkId);
 };
 
-const randomizeLink = () => {
-  const link = arrays.random(linksArray);
-  if (!link) return;
-  if (!contentRandomizer) return link;
+const randomLink = () => arrays.random(linksArray);
+
+const replaceContent = (link: Link) => {
+  if (!contentRandomizer || !contentContainer) return;
+
+  const content = link.content();
+  contentContainer.replaceChildren(content);
 
   // @ts-expect-error URL constructor does accept location
   const url = new URL(location);
   const { searchParams } = url;
   searchParams.set("link", link.id);
-  contentRandomizer.href = url.toString();
-  return link;
-};
+  history.replaceState({}, "", url);
 
-const replaceContent = () => {
-  const link = locationLink() ?? randomizeLink();
-  if (!link) return;
-
-  const content = link.content();
-  contentContainer?.replaceChildren(content);
-  randomizeLink();
+  const hrefLink = randomLink();
+  if (hrefLink) {
+    searchParams.set("link", hrefLink.id);
+    contentRandomizer.href = url.toString();
+  }
 };
 
 //#region main
 contentRandomizer?.addEventListener("click", (event) => {
   event.preventDefault();
-  // Changes location (which replaceContent uses)
-  history.pushState({}, "", contentRandomizer.href);
-  replaceContent();
+
+  // Set location to the clicked link
+  history.replaceState({}, "", contentRandomizer.href);
+
+  const clickedLink = locationLink();
+  if (clickedLink) replaceContent(clickedLink);
 });
 
-replaceContent();
+const initialLink = locationLink() ?? randomLink();
+if (initialLink) replaceContent(initialLink);
 //#endregion
