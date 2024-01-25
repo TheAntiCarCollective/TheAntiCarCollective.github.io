@@ -23,6 +23,19 @@ class BaseLink<K extends keyof HTMLElementTagNameMap> {
   }
 }
 
+class BasicLink extends BaseLink<"iframe"> {
+  constructor(contentId: string) {
+    super("iframe", BasicLink, contentId);
+  }
+
+  content() {
+    const iframe = super.content();
+    iframe.src = this.contentId;
+    iframe.title = `Link to ${this.contentId}`;
+    return iframe;
+  }
+}
+
 class PdfLink extends BaseLink<"div"> {
   constructor(contentId: string) {
     super("div", PdfLink, contentId);
@@ -93,7 +106,7 @@ class YouTubeLink extends BaseLink<"iframe"> {
 //#endregion
 
 //#region Types
-type Link = PdfLink | YouTubeLink;
+type Link = BasicLink | PdfLink | YouTubeLink;
 export default Link;
 //#endregion
 
@@ -107,6 +120,9 @@ const parse = (rawLink: unknown) => {
   if (typeof contentId !== "string" || typeof type !== "string") return;
 
   switch (type) {
+    case "basic": {
+      return new BasicLink(contentId);
+    }
     case "pdf": {
       return new PdfLink(contentId);
     }
