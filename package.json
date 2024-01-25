@@ -29,8 +29,9 @@
   "scripts": {
     "build": "node build.mjs",
     "format": "prettier --write .",
-    "formatted": "prettier --check .",
+    "format:check": "prettier --check .",
     "lint": "eslint --ignore-path .gitignore . && stylelint \"**/*.css\"",
+    "link:fix": "eslint --fix --ignore-path .gitignore . && stylelint --fix \"**/*.css\"",
     "test": "echo TODO"
   },
   "type": "module",

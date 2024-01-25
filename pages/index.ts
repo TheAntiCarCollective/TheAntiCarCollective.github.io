@@ -5,15 +5,6 @@ const contentRandomizer =
   document.querySelector<HTMLAnchorElement>("#content-randomizer");
 const contentContainer = document.querySelector("#content-container");
 
-const locationLink = () => {
-  // @ts-expect-error URL constructor does accept location
-  const { searchParams } = new URL(location);
-  const linkId = searchParams.get("link") ?? "";
-  return links.get(linkId);
-};
-
-const randomLink = links.random;
-
 const replaceContent = (link: Link) => {
   if (!contentRandomizer || !contentContainer) return;
 
@@ -26,7 +17,7 @@ const replaceContent = (link: Link) => {
   searchParams.set("link", link.id);
   history.replaceState({}, "", url);
 
-  const hrefLink = randomLink();
+  const hrefLink = links.random();
   if (hrefLink) {
     searchParams.set("link", hrefLink.id);
     contentRandomizer.href = url.toString();
@@ -40,10 +31,10 @@ contentRandomizer?.addEventListener("click", (event) => {
   // Set location to the clicked link
   history.replaceState({}, "", contentRandomizer.href);
 
-  const clickedLink = locationLink();
+  const clickedLink = links.location();
   if (clickedLink) replaceContent(clickedLink);
 });
 
-const initialLink = locationLink() ?? randomLink();
+const initialLink = links.location() ?? links.random();
 if (initialLink) replaceContent(initialLink);
 //#endregion
