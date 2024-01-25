@@ -32,7 +32,7 @@ jobs:
         run: npm ci
       - name: Check Formatting
         run: npm run format:check
-      - name: Run Linters
+      - name: Lint
         run: npm run lint
       - name: Test
         run: npm test
@@ -43,7 +43,7 @@ jobs:
       - name: Upload Artifacts to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./pages
 
   deploy:
     runs-on: ubuntu-latest
