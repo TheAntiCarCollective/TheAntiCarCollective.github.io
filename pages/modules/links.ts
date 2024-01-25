@@ -48,17 +48,22 @@ class PdfLink extends BaseLink<"div"> {
         divId: div.id,
       });
 
-      view.previewFile({
-        content: {
-          location: {
-            url: `assets/pdf/${fileName}`,
+      view.previewFile(
+        {
+          content: {
+            location: {
+              url: `assets/pdf/${fileName}`,
+            },
+          },
+          metaData: {
+            fileName,
+            hasReadOnlyAccess: true,
           },
         },
-        metaData: {
-          fileName,
-          hasReadOnlyAccess: true,
+        {
+          showAnnotationTools: false,
         },
-      });
+      );
       /* eslint-enable @typescript-eslint/no-unsafe-member-access */
       /* eslint-enable @typescript-eslint/no-unsafe-call */
       /* eslint-enable @typescript-eslint/no-unsafe-assignment */
