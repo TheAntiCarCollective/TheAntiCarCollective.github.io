@@ -8,16 +8,12 @@ body {
 body {
   display: grid;
   overflow: hidden;
-}
 
-@media (orientation: landscape) {
-  body {
+  @media (orientation: landscape) {
     grid-template-columns: auto 1fr;
   }
-}
 
-@media (orientation: portrait) {
-  body {
+  @media (orientation: portrait) {
     grid-template-rows: auto 1fr;
   }
 }
@@ -25,14 +21,12 @@ body {
 header {
   display: grid;
   background: lightsteelblue;
-}
 
-@media (orientation: landscape) {
-  grid-template-rows: auto auto auto;
-}
+  @media (orientation: landscape) {
+    grid-template-rows: auto auto auto;
+  }
 
-@media (orientation: portrait) {
-  header {
+  @media (orientation: portrait) {
     grid-template-columns: auto auto auto;
   }
 }
@@ -42,22 +36,18 @@ header {
   height: 100%;
   width: 100%;
   border: 1px solid black;
+
+  @media (orientation: landscape) {
+    align-items: center;
+  }
+
+  @media (orientation: portrait) {
+    justify-items: center;
+  }
 }
 
 .header-link:hover {
   background: steelblue;
-}
-
-@media (orientation: landscape) {
-  .header-link {
-    align-items: center;
-  }
-}
-
-@media (orientation: portrait) {
-  .header-link {
-    justify-items: center;
-  }
 }
 
 .header-link > img {

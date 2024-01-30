@@ -5,16 +5,20 @@
   },
   "description": "",
   "devDependencies": {
+    "@types/node": "20.11.10",
     "@typescript-eslint/eslint-plugin": "6.19.1",
     "@typescript-eslint/parser": "6.19.1",
     "eslint": "8.56.0",
     "eslint-plugin-perfectionist": "2.5.0",
     "eslint-plugin-sonarjs": "0.23.0",
     "eslint-plugin-unicorn": "50.0.1",
+    "jsdom": "24.0.0",
     "prettier": "3.2.4",
     "stylelint": "16.2.0",
     "stylelint-config-standard": "36.0.0",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "vite": "5.0.12",
+    "vitest": "1.2.2"
   },
   "homepage": "https://anticar.org",
   "keywords": [],
@@ -26,12 +30,18 @@
     "url": "git+https://github.com/TheAntiCarCollective/TheAntiCarCollective.github.io.git"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && vite build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint --ignore-path .gitignore . && stylelint \"**/*.css\"",
-    "link:fix": "eslint --fix --ignore-path .gitignore . && stylelint --fix \"**/*.css\"",
-    "test": "echo TODO"
+    "lint": "npm run lint:eslint && npm run lint:stylelint",
+    "lint:eslint": "eslint --ignore-path .gitignore .",
+    "lint:fix": "npm run lint:fix:eslint && npm run lint:fix:stylelint",
+    "lint:fix:eslint": "eslint --fix --ignore-path .gitignore .",
+    "lint:fix:stylelint": "stylelint --fix --ignore-path .gitignore \"**/*.css\"",
+    "lint:stylelint": "stylelint --ignore-path .gitignore \"**/*.css\"",
+    "preview": "vite preview",
+    "start": "vite",
+    "test": "vitest"
   },
   "type": "module",
   "version": "1.0.0"
