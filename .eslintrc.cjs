@@ -14,5 +14,6 @@ module.exports = {
   plugins: ["@typescript-eslint", "perfectionist", "sonarjs", "unicorn"],
   rules: {
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/consistent-type-imports": "error",
   },
 };

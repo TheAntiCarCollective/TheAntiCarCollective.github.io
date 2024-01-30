@@ -14,7 +14,7 @@ permissions:
 # However, do NOT cancel in-progress runs as we want to allow these production
 # deployments to complete
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -34,16 +34,16 @@ jobs:
         run: npm run format:check
       - name: Lint
         run: npm run lint
-      - name: Test
-        run: npm test
       - name: Build
         run: npm run build
+      - name: Test
+        run: npm test
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
       - name: Upload Artifacts to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./pages
+          path: dist
 
   deploy:
     runs-on: ubuntu-latest
