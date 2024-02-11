@@ -20,7 +20,6 @@ body {
 
 header {
   display: grid;
-  background: lightsteelblue;
 
   @media (orientation: landscape) {
     grid-template-rows: auto auto auto;
@@ -46,8 +45,16 @@ header {
   }
 }
 
-.header-link:hover {
-  background: steelblue;
+@media (hover: none) {
+  .header-link:active {
+    background: lightsteelblue;
+  }
+}
+
+@media (hover: hover) {
+  .header-link:hover {
+    background: lightsteelblue;
+  }
 }
 
 .header-link > img {

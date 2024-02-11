@@ -1,26 +1,66 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { expect, test } from "vitest";
+import { describe, expect, test } from "vitest";
+import { z } from "zod";
 
 import * as links from "./links.ts";
+import { LinkType } from "./links.ts";
+
+const LinksSchema = z.array(
+  z.object({
+    author: z.string(),
+    id: z.string(),
+    title: z.string(),
+    type: z.nativeEnum(LinkType),
+  }),
+);
 
 const { all } = links;
-const allPdf = all.filter(({ type }) => type === "pdf");
 
-test.each(all)("%j is a valid type", (link) => {
-  const element = links.createElement(link);
-  expect(element).toBeDefined();
+test("all is LinksSchema", () => {
+  const typed: z.infer<typeof LinksSchema> = all;
+  const parsed = LinksSchema.parse(all);
+  expect(parsed).toStrictEqual(typed);
 });
 
-test.each(all)("%j as URL is equal to location", (link) => {
-  const url = links.url(link);
-  history.pushState({}, "", url);
-  const locationLink = links.location();
-  expect(locationLink).toStrictEqual(link);
-});
+describe.each(all)("%j", (link) => {
+  test("is not a duplicate", () => {
+    const linkIndex = all.indexOf(link);
+    for (const [anyLinkIndex, anyLink] of all.entries()) {
+      if (anyLinkIndex !== linkIndex) {
+        if (anyLink.type === link.type)
+          // If equal types, no equal IDs
+          expect(anyLink.id).not.toBe(link.id);
 
-test.each(allPdf)("$id PDF file exists", ({ id }) => {
-  const filePath = path.join("public", "pdf", `${id}.pdf`);
-  const exists = fs.existsSync(filePath);
-  expect(exists).toBeTruthy();
+        if (anyLink.author === link.author)
+          // If equal authors, no equal titles
+          expect(anyLink.title).not.toBe(link.title);
+      }
+    }
+  });
+
+  test("if url then location returns equal BaseLink", () => {
+    const url = links.url(link);
+    history.pushState({}, "", url);
+
+    const locationLink = links.location();
+    expect(locationLink?.type).toBe(link.type);
+    expect(locationLink?.id).toBe(link.id);
+  });
+
+  if (link.type === LinkType.Pdf) {
+    test("id is valid", () => {
+      const id = `${link.author} ${link.title}`
+        .replace(/\s/g, "-")
+        .toLowerCase();
+
+      expect(id).toBe(link.id);
+    });
+
+    test("file exists", () => {
+      const filePath = path.join("public", "assets", "pdf", `${link.id}.pdf`);
+      const exists = fs.existsSync(filePath);
+      expect(exists).toBeTruthy();
+    });
+  }
 });

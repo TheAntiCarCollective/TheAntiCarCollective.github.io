@@ -1,28 +1,47 @@
 import * as arrays from "../arrays.ts";
-import links from "./links.json";
+import linksJson from "./links.json";
 
-//#region Types
-type Link = (typeof links)[number];
-export default Link;
+//#region Constants
+export enum LinkType {
+  Basic = "basic",
+  Pdf = "pdf",
+  YouTube = "youtube",
+}
 //#endregion
 
-export { default as all } from "./links.json";
+//#region Types
+export type BaseLink = {
+  id: string;
+  type: LinkType;
+};
 
-export const random = () => arrays.random(links);
+export type Link = BaseLink & {
+  author: string;
+  title: string;
+};
+//#endregion
+
+export const all = linksJson as Link[];
+
+export const random = () => arrays.random(all);
 
 export const location = () => {
   const { location } = window;
   const { href } = location;
-  const url = new URL(href);
+  const { searchParams } = new URL(href);
 
-  const { searchParams } = url;
-  const id = searchParams.get("id") ?? "";
-  const type = searchParams.get("type") ?? "";
-
-  return id && type ? { id, type } : undefined;
+  const type = searchParams.get("type");
+  switch (type) {
+    case LinkType.Basic:
+    case LinkType.Pdf:
+    case LinkType.YouTube: {
+      const id = searchParams.get("id");
+      return id ? { id, type } : undefined;
+    }
+  }
 };
 
-export const url = ({ id, type }: Link) => {
+export const url = ({ id, type }: BaseLink) => {
   const { location } = window;
   const { href } = location;
   const url = new URL(href);
@@ -35,14 +54,14 @@ export const url = ({ id, type }: Link) => {
 };
 
 //#region createElement
-const createBasicElement = ({ id }: Link) => {
+const createBasicElement = ({ id }: BaseLink) => {
   const iframe = document.createElement("iframe");
   iframe.src = id;
   iframe.title = "Embedded website browser";
   return iframe;
 };
 
-const createPdfElement = ({ id }: Link) => {
+const createPdfElement = ({ id }: BaseLink) => {
   const div = document.createElement("div");
 
   const observer = new MutationObserver((_mutations, observer) => {
@@ -62,7 +81,7 @@ const createPdfElement = ({ id }: Link) => {
         content: {
           location: {
             // root is defined as public folder
-            url: `/pdf/${id}.pdf`,
+            url: `/assets/pdf/${id}.pdf`,
           },
         },
         metaData: {
@@ -84,7 +103,7 @@ const createPdfElement = ({ id }: Link) => {
   return div;
 };
 
-const createYouTubeElement = ({ id }: Link) => {
+const createYouTubeElement = ({ id }: BaseLink) => {
   const iframe = document.createElement("iframe");
   iframe.src = `https://www.youtube-nocookie.com/embed/${id}`;
   iframe.title = "YouTube video player";
@@ -95,15 +114,15 @@ const createYouTubeElement = ({ id }: Link) => {
   return iframe;
 };
 
-export const createElement = (link: Link) => {
+export const createElement = (link: BaseLink) => {
   switch (link.type) {
-    case "basic": {
+    case LinkType.Basic: {
       return createBasicElement(link);
     }
-    case "pdf": {
+    case LinkType.Pdf: {
       return createPdfElement(link);
     }
-    case "youtube": {
+    case LinkType.YouTube: {
       return createYouTubeElement(link);
     }
   }

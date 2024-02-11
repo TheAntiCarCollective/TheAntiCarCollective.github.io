@@ -1,106 +1,158 @@
 [
   {
     "id": "Ra_0DgnJ1uQ",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Why Cars Rarely Crash into Buildings in the Netherlands"
   },
   {
     "id": "bnKIVX968PQ",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "The Lively & Liveable Neighbourhoods that are Illegal in Most of North America"
   },
   {
     "id": "VVUeqxXwCA0",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "How Suburban Development Makes American Cities Poorer [ST02]"
   },
   {
     "id": "7IsMeKl-Sv0",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Why American Cities Are Broke - The Growth Ponzi Scheme [ST03]"
   },
   {
     "id": "XfQUOHlAocY",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "How Bankrupt American Cities Stay Alive - Debt [ST04]"
   },
   {
     "id": "ORzNZUeUHAM",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Stroads are Ugly, Expensive, and Dangerous (and they're everywhere) [ST05]"
   },
   {
     "id": "CTV-wwszGw8",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Cities Aren't Loud: Cars Are Loud"
   },
   {
     "id": "uxykI30fS54",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Why City Design is Important (and why I hate Houston)"
   },
   {
     "id": "bglWCuCMSWc",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "The Wrong Way to Set Speed Limits [ST06]"
   },
   {
     "id": "vxWjtpzCIfA",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "The Trains that Subsidize Suburbia - GO Transit Commuter Rail"
   },
   {
     "id": "d8RRE2rDw4k",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "The Best Country in the World for Drivers"
   },
   {
     "id": "cO6txCZpbsQ",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Dutch Cities are Better for the Environment (and my sanity)"
   },
   {
     "id": "7Nw6qyyrTeI",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Suburbia is Subsidized: Here's the Math [ST07]"
   },
   {
     "id": "KPUlgSRn6e0",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "The Gym of Life"
   },
   {
     "id": "_ByEBjf9ktY",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Crossing the Street Shouldn't Be Deadly (but it is)"
   },
   {
     "id": "mXLqrMljdfU",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Why Amsterdam is Removing 10,000 Parking Spaces"
   },
   {
     "id": "n94-_yE4IeU",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Would You Fall for It? [ST08]"
   },
   {
     "id": "jN7mSXMruEo",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "These Stupid Trucks are Literally Killing Us"
   },
   {
     "id": "kdz6FeQLuHQ",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "This Tiny Island has Insane Traffic"
   },
   {
     "id": "REni8Oi1QJQ",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "The Dumbest Excuse for Bad Cities"
   },
   {
     "id": "AOc8ASeHYNw",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Designing Urban Places that Don't Suck (a sense of place)"
   },
   {
     "id": "ztpcWUqVpIg",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Even Small Towns are Great Here (5 Years in the Netherlands)"
   },
   {
     "id": "6Vil5KC7Bl0",
-    "type": "youtube"
+    "type": "youtube",
+    "author": "Not Just Bikes",
+    "title": "Germany's \"Green\" City (with more bikes than cars!)"
   },
   {
     "id": "justin-tyndall-the-effect-of-front-end-vehicle-height-on-pedestrian-death-risk",
-    "type": "pdf"
+    "type": "pdf",
+    "author": "Justin Tyndall",
+    "title": "The effect of front-end vehicle height on pedestrian death risk"
   },
   {
     "id": "nikolaos-evangeliou-atmospheric-transport-is-a-major-pathway-of-microplastics-to-remote-regions",
-    "type": "pdf"
+    "type": "pdf",
+    "author": "Nikolaos Evangeliou",
+    "title": "Atmospheric transport is a major pathway of microplastics to remote regions"
   },
   {
     "id": "https://ite.ygsclicbook.com/pubs/itejournal/2022/june-2022/live/index.html",
-    "type": "basic"
+    "type": "basic",
+    "author": "Institute of Transportation Engineers",
+    "title": "Thinking Beyond the Car"
   }
 ]

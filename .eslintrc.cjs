@@ -15,5 +15,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "@typescript-eslint/consistent-type-imports": "error",
+    // Avoid changing tsconfig.json "lib" from es2015 to es2021
+    "unicorn/prefer-string-replace-all": "off",
   },
 };
