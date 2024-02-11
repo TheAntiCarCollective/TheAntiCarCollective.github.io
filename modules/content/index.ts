@@ -1,4 +1,4 @@
-import type Link from "./links.ts";
+import type { BaseLink } from "./links.ts";
 
 import * as links from "./links.ts";
 
@@ -7,13 +7,13 @@ const contentContainer = () => document.querySelector("#content-container");
 const contentRandomizer = () =>
   document.querySelector<HTMLAnchorElement>("#content-randomizer");
 
-const render = (link: Link) => {
+const render = (link: BaseLink) => {
   const url = links.url(link);
   history.pushState({}, "", url);
 
-  const element = links.createElement(link);
   const container = contentContainer();
-  if (element && container) {
+  if (container) {
+    const element = links.createElement(link);
     element.id = "content";
     container.replaceChildren(element);
   }
