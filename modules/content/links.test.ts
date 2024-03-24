@@ -48,19 +48,42 @@ describe.each(all)("%j", (link) => {
     expect(locationLink?.id).toBe(link.id);
   });
 
-  if (link.type === LinkType.Pdf) {
-    test("id is valid", () => {
-      const id = `${link.author} ${link.title}`
-        .replace(/\s/g, "-")
-        .toLowerCase();
+  switch (link.type) {
+    case LinkType.Basic: {
+      test("id is URL", () => {
+        const anchor = document.createElement("a");
+        anchor.href = link.id;
+        expect(anchor.protocol).not.toHaveLength(0);
+        expect(anchor.protocol).not.toBe(window.location.protocol);
+        expect(anchor.host).not.toHaveLength(0);
+        expect(anchor.host).not.toBe(window.location.host);
+      });
 
-      expect(id).toBe(link.id);
-    });
+      break;
+    }
+    case LinkType.Pdf: {
+      test("id format is valid", () => {
+        const id = `${link.author} ${link.title}`
+          .replace(/\s/g, "-")
+          .toLowerCase();
 
-    test("file exists", () => {
-      const filePath = path.join("public", "assets", "pdf", `${link.id}.pdf`);
-      const exists = fs.existsSync(filePath);
-      expect(exists).toBeTruthy();
-    });
+        expect(id).toBe(link.id);
+      });
+
+      test("file exists", () => {
+        const filePath = path.join("public", "assets", "pdf", `${link.id}.pdf`);
+        const exists = fs.existsSync(filePath);
+        expect(exists).toBeTruthy();
+      });
+
+      break;
+    }
+    case LinkType.YouTube: {
+      test("id is YouTube ID", () => {
+        expect(link.id).toHaveLength(11);
+      });
+
+      break;
+    }
   }
 });
