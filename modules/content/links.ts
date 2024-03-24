@@ -81,7 +81,7 @@ const createPdfElement = ({ id }: BaseLink) => {
         content: {
           location: {
             // root is defined as public folder
-            url: `/assets/pdf/${id}.pdf`,
+            url: `/static/pdf/${id}.pdf`,
           },
         },
         metaData: {
