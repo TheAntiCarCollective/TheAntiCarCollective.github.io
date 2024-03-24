@@ -71,7 +71,7 @@ describe.each(all)("%j", (link) => {
       });
 
       test("file exists", () => {
-        const filePath = path.join("public", "assets", "pdf", `${link.id}.pdf`);
+        const filePath = path.join("public", "static", "pdf", `${link.id}.pdf`);
         const exists = fs.existsSync(filePath);
         expect(exists).toBeTruthy();
       });
