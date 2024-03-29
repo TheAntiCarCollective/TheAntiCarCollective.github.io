@@ -1,5 +1,6 @@
 import * as arrays from "../arrays.ts";
 import linksJson from "./links.json";
+import { createElement as createPdfElement } from "./pdf.ts";
 
 //#region Constants
 export enum LinkType {
@@ -59,48 +60,6 @@ const createBasicElement = ({ id }: BaseLink) => {
   iframe.src = id;
   iframe.title = "Embedded website browser";
   return iframe;
-};
-
-const createPdfElement = ({ id }: BaseLink) => {
-  const div = document.createElement("div");
-
-  const observer = new MutationObserver((_mutations, observer) => {
-    if (document.contains(div)) observer.disconnect();
-    else return;
-
-    const { AdobeDC } = window;
-    if (!AdobeDC) return;
-
-    const view = new AdobeDC.View({
-      clientId: "7f60fd21707b4ca99426ce80b460246c",
-      divId: div.id,
-    });
-
-    view.previewFile(
-      {
-        content: {
-          location: {
-            // root is defined as public folder
-            url: `/static/pdf/${id}.pdf`,
-          },
-        },
-        metaData: {
-          fileName: `${id}.pdf`,
-          hasReadOnlyAccess: true,
-        },
-      },
-      {
-        showAnnotationTools: false,
-      },
-    );
-  });
-
-  observer.observe(document, {
-    childList: true,
-    subtree: true,
-  });
-
-  return div;
 };
 
 const createYouTubeElement = ({ id }: BaseLink) => {
