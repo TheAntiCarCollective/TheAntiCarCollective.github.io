@@ -26,23 +26,18 @@ const render = (link: BaseLink) => {
   }
 };
 
-//#region initialize
-const initialize = () => {
-  const randomizer = contentRandomizer();
-  randomizer?.addEventListener("click", (event) => {
-    event.preventDefault();
+//#region init
+const randomizer = contentRandomizer();
+randomizer?.addEventListener("click", (event) => {
+  event.preventDefault();
 
-    // Set location to the clicked link
-    history.pushState({}, "", randomizer.href);
+  // Set location to the clicked link
+  history.pushState({}, "", randomizer.href);
 
-    const clickedLink = links.location();
-    if (clickedLink) render(clickedLink);
-  });
+  const clickedLink = links.location();
+  if (clickedLink) render(clickedLink);
+});
 
-  const initialLink = links.location() ?? links.random();
-  if (initialLink) render(initialLink);
-};
-
-if (window.AdobeDC) initialize();
-else document.addEventListener("adobe_dc_view_sdk.ready", initialize);
+const initialLink = links.location() ?? links.random();
+if (initialLink) render(initialLink);
 //#endregion
